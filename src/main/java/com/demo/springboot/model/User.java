@@ -3,12 +3,16 @@ package com.demo.springboot.model;
 import java.util.UUID;
 
 public class User {
-    private final UUID userId;
+    private UUID userId;
     private final String firstName;
     private final String lastName;
     private final Gender gender;
     private final Integer age;
     private final String email;
+
+    public void setUserUuid(UUID userUid) {
+        this.userId = userUid;
+    }
 
     public enum Gender{
         MALE, FEMALE
