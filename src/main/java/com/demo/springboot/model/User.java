@@ -1,21 +1,30 @@
 package com.demo.springboot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class User {
-    private UUID userId;
-    private  String firstName;
-    private  String lastName;
-    private  Gender gender;
-    private  Integer age;
-    private  String email;
+    private final UUID userId;
+    private final String firstName;
+    private final String lastName;
+    private final Gender gender;
+    private final Integer age;
+    private final String email;
 
 
     public enum Gender{
         MALE, FEMALE
     }
 
-    public User(UUID userId, String firstName, String lastName, Gender gender, Integer age, String email) {
+    public User(@JsonProperty("userId") UUID userId,
+                @JsonProperty("firstName") String firstName,
+                @JsonProperty("lastName") String lastName,
+                @JsonProperty("gender") Gender gender,
+                @JsonProperty("age") Integer age,
+                @JsonProperty("email") String email) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -24,21 +33,21 @@ public class User {
         this.email = email;
     }
 
-    public User() {
+    public static User newUser(UUID userUid, User user){
+        return new User(userUid, user.getFirstName(), user.getLastName(),user.gender, user.getAge(),  user.getEmail());
     }
 
-    public void setUserUuid(UUID userUid) {
-        this.userId = userUid;
-    }
-
-    public UUID getUserId() {
+    @JsonProperty("ID")
+    public UUID getUserUid() {
         return userId;
     }
 
+    //@JsonIgnore
     public String getFirstName() {
         return firstName;
     }
 
+    //@JsonIgnore //To ignore fields!
     public String getLastName() {
         return lastName;
     }
@@ -53,6 +62,14 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getFullName(){
+        return firstName + " " + lastName;
+    }
+
+    public int getDateOfBirth(){
+        return LocalDate.now().minusYears(age).getYear();
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.demo.springboot.service;
 
-import com.demo.springboot.dao.FakeDataDao;
 import com.demo.springboot.dao.UserDao;
 import com.demo.springboot.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,7 @@ public class UserService {
 
 
     public int updateUser(User user) {
-        Optional<User> optinalUser = getUser(user.getUserId());
+        Optional<User> optinalUser = getUser(user.getUserUid());
         if(optinalUser.isPresent()){
             return userDao.updateUser(user);
         }
@@ -62,7 +61,6 @@ public class UserService {
 
     public int insertUser(User user) {
         UUID userUid = UUID.randomUUID();
-        user.setUserUuid(userUid);
-        return userDao.insertUser(userUid, user);
+        return userDao.insertUser(userUid, User.newUser(userUid, user));
     }
 }

@@ -9,7 +9,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -148,8 +147,8 @@ public class UserServiceTest {
         assertThat(user.getAge()).isEqualTo(8);
         assertThat(user.getGender()).isEqualTo(User.Gender.FEMALE);
         assertThat(user.getFirstName()).isEqualTo("Anna");
-        assertThat(user.getUserId()).isNotNull();
-        assertThat(user.getUserId()).isInstanceOf(UUID.class);
+        assertThat(user.getUserUid()).isNotNull();
+        assertThat(user.getUserUid()).isInstanceOf(UUID.class);
 
     }
 }
